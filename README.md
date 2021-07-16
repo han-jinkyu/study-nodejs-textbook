@@ -7,9 +7,9 @@
 2. [알아두어야 할 자바스크립트](./docs/02/index.md)
 3. [노드 기능 알아보기](./docs/03/index.md)
 4. [http 모듈로 서버 만들기](./docs/04/index.md)
-5. 패키지 매니저
-6. 익스프레스 웹 서버 만들기
-7. MySQL
+5. [패키지 매니저](./docs/05/index.md)
+6. [익스프레스 웹 서버 만들기](./docs/06/index.md)
+7. [MySQL](./docs/07/index.md)
 8. 몽고디비
 9. 익스프레스로 SNS 서비스 만들기
 10. 웹 API 서버 만들기
