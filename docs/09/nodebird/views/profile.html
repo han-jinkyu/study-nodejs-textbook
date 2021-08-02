@@ -6,7 +6,11 @@
       <h2>팔로잉 목록</h2>
       {% if user.Followings %}
         {% for following in user.Followings %}
-          <div>{{following.nick}}</div>
+          <div>
+            {{following.nick}}
+            <input class="following-id" type="hidden" value="{{following.id}}" />
+            <button class="cancel-following">팔로윙 취소</button>
+          </div>
         {% endfor %}
       {% endif %}
     </div>
@@ -19,4 +23,24 @@
       {% endif %}
     </div>
   </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  document.querySelectorAll('.cancel-following')
+    .forEach((tag) => {
+      tag.addEventListener('click', () => {
+        const userId = tag.parentNode.querySelector('.following-id').value;
+        if (!userId) {
+          return
+        }
+        if (!confirm('팔로윙을 취소하시겠습니까?')) {
+          return
+        }
+        axios.delete(`/user/${userId}/follow`)
+          .then(() => location.reload())
+          .catch(err => console.error(err));
+      });
+    });
+</script>
 {% endblock %}
