@@ -10,7 +10,7 @@ exports.addFollowing = async (req, res, next) => {
             res.status(404).send('no user');
         }
     } catch (err) {
-        console.error(err);
+        // console.error(err);
         next(err);
     }
 };
