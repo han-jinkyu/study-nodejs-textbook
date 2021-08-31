@@ -2,8 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const schedule = require('node-schedule');
 
-const { Good, Auction, User } = require('../models');
+const { Good, Auction, User, sequelize } = require('../models');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 const router = express.Router();
@@ -63,6 +64,24 @@ router.post('/good', isLoggedIn, upload.single('img'), async (req, res, next) =>
             name,
             img: req.file.filename,
             price,
+        });
+        const end = new Date();
+        end.setDate(end.getDate() + 1);
+        schedule.scheduleJob(end, async () => {
+            const success = await Auction.findOne({
+                where: { GoodId: good.id },
+                order: [
+                    [ 'bid', 'DESC' ],
+                ],
+            });
+            await Good.update(
+                { SoldId: success.UserId },
+                { where: { id: good.id } },
+            )
+            await User.update(
+                { money: sequelize.literal(`money - ${success.bid}`) },
+                { where: { id: success.UserId } },
+            );
         });
         res.redirect('/')
     } catch (err) {
