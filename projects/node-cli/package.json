@@ -6,6 +6,11 @@
     "author": "Han",
     "license": "ISC",
     "bin": {
-        "cli": "./template.js"
+        "cli": "./command.js"
+    },
+    "dependencies": {
+        "chalk": "^4.1.2",
+        "commander": "^8.1.0",
+        "inquirer": "^8.1.2"
     }
 }

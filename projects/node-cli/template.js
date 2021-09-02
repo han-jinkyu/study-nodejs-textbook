@@ -50,10 +50,10 @@ const exist = (dir) => {
 const mkdirp = (dir) => {
     const dirname = path
         .relative('.', path.normalize(dir))
-        .split(path.seq)
+        .split(path.sep)
         .filter(p => !!p);
     dirname.forEach((d, idx) => {
-        const pathBuilder = dirname.slice(0, idx + 1).join(path.seq);
+        const pathBuilder = dirname.slice(0, idx + 1).join(path.sep);
         if (!exist(pathBuilder)) {
             fs.mkdirSync(pathBuilder);
         }
